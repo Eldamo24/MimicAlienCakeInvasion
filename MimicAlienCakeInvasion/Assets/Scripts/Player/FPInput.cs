@@ -35,7 +35,7 @@ public sealed class FPInput : MonoBehaviour
         sprintAction.action.Enable();
 
         jumpAction.action.performed += OnJumpPerformed;
-        sprintAction.action.performed += OnSprintPerformed;
+        sprintAction.action.performed += OnSprintPressed;
         sprintAction.action.canceled += OnSprintCanceled;
 
         lookAction.action.performed += OnLookSourceChanged;
@@ -45,7 +45,7 @@ public sealed class FPInput : MonoBehaviour
     private void OnDisable()
     {
         jumpAction.action.performed -= OnJumpPerformed;
-        sprintAction.action.performed -= OnSprintPerformed;
+        sprintAction.action.performed -= OnSprintPressed;
         sprintAction.action.canceled -= OnSprintCanceled;
 
         lookAction.action.performed -= OnLookSourceChanged;
@@ -71,7 +71,7 @@ public sealed class FPInput : MonoBehaviour
         motor.PressJump();
     }
 
-    private void OnSprintPerformed(InputAction.CallbackContext _)
+    private void OnSprintPressed(InputAction.CallbackContext _)
     {
         motor.SetRunHeld(true);
     }

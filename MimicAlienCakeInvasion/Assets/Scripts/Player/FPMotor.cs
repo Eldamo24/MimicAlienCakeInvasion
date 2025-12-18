@@ -41,6 +41,9 @@ public sealed class FPMotor : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         if (moveBasis == null) moveBasis = transform;
+        _timeSinceJumpPressed = float.PositiveInfinity;
+        _timeSinceGrounded = float.PositiveInfinity;
+        _verticalVelocity = 0f;
     }
 
     private void Update()
@@ -86,9 +89,11 @@ public sealed class FPMotor : MonoBehaviour
 
         if (bufferedJump && canCoyote)
         {
+            // Consumir buffer + coyote
             _timeSinceJumpPressed = float.PositiveInfinity;
             _timeSinceGrounded = float.PositiveInfinity;
 
+            // v = sqrt(2gh)
             _verticalVelocity = Mathf.Sqrt(2f * Mathf.Abs(gravity) * jumpHeight);
             IsGrounded = false;
         }
@@ -113,6 +118,7 @@ public sealed class FPMotor : MonoBehaviour
 
     private void UpdateVerticalMotion()
     {
+        // Mantener pegado al suelo sin forzar Move() adicional
         if (IsGrounded && _verticalVelocity < 0f)
             _verticalVelocity = groundedStickForce;
 
@@ -124,6 +130,7 @@ public sealed class FPMotor : MonoBehaviour
 
     public void PressJump()
     {
-        _timeSinceJumpPressed = 0f; // jump buffer
+        // Jump buffer
+        _timeSinceJumpPressed = 0f;
     }
 }
