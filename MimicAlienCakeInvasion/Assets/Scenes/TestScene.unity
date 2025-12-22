@@ -1518,6 +1518,8 @@ GameObject:
   - component: {fileID: 751931201}
   - component: {fileID: 751931200}
   - component: {fileID: 751931199}
+  - component: {fileID: 751931203}
+  - component: {fileID: 751931202}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1641,6 +1643,37 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &751931202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751931196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6fdcdad6eafd046872b37a8eafb0c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathHandler
+  health: {fileID: 751931203}
+  motor: {fileID: 751931201}
+  inputComponent: {fileID: 751931200}
+  respawnDelay: 1
+  respawnSystem: {fileID: 1622225070}
+--- !u!114 &751931203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751931196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6e3aae25dd2ae4a86d58fa2b658bac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHits: 2
+  invulnerabilitySeconds: 0.25
 --- !u!65 &758374344
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3135,6 +3168,56 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 368494681723070381, guid: 4f7014cd5e7196547852078237ada700, type: 3}
+--- !u!1 &1622225068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1622225069}
+  - component: {fileID: 1622225070}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1622225069
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622225068}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1622225070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622225068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2533cd82bcbddb4fb8f20b7258adb19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RespawnSystem
+  playerRoot: {fileID: 751931197}
+  characterController: {fileID: 751931198}
+  playerHealth: {fileID: 751931203}
+  motor: {fileID: 751931201}
+  inputComponent: {fileID: 751931200}
+  respawnPoint: {fileID: 1800062666}
 --- !u!65 &1624523469
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3588,6 +3671,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.00800024, y: 0.008000238, z: 0.008000238}
   m_Center: {x: 0.000000007450581, y: 0.00000023841858, z: 0}
+--- !u!1 &1800062665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1800062666}
+  m_Layer: 0
+  m_Name: RespawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1800062666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800062665}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 2.07, y: 0, z: -0.96}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &1804520160
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5835,3 +5949,5 @@ SceneRoots:
   - {fileID: 1704401941}
   - {fileID: 751931197}
   - {fileID: 1877182711}
+  - {fileID: 1622225069}
+  - {fileID: 1800062666}

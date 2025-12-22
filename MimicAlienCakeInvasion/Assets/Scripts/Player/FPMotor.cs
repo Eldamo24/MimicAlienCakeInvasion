@@ -133,4 +133,15 @@ public sealed class FPMotor : MonoBehaviour
         // Jump buffer
         _timeSinceJumpPressed = 0f;
     }
+
+    public void ResetMotion()
+    {
+        _horizontalVelocity = Vector3.zero;
+        _verticalVelocity = 0f;
+        _moveInput = Vector2.zero;
+        _runHeld = false;
+
+        _timeSinceGrounded = float.PositiveInfinity;
+        _timeSinceJumpPressed = float.PositiveInfinity;
+    }
 }
