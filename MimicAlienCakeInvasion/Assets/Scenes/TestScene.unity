@@ -1532,6 +1532,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.18200001, y: 0.0020143068, z: 0.035}
   m_Center: {x: -0.069000006, y: 0.0009928618, z: 0.0175}
+--- !u!1 &750110607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 750110608}
+  m_Layer: 0
+  m_Name: TerminalLoopPoint1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &750110608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750110607}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -17.118, y: 0, z: 1.331}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &751931196
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1579,7 @@ GameObject:
   - component: {fileID: 751931203}
   - component: {fileID: 751931202}
   - component: {fileID: 751931204}
+  - component: {fileID: 751931205}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1610,7 +1642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
   m_Actions: {fileID: -944628639613478452, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -1621,7 +1653,27 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e6feea82-ae0e-48f1-96f0-414af1e28ec7
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d3443019-201f-410c-80c6-f02707a33d88
+    m_ActionName: 'Player/Look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a49737af-b346-49b9-a530-42b32836559f
+    m_ActionName: 'Player/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eabba48e-eb5f-4355-8cf8-e82a53b6d07b
+    m_ActionName: 'Player/Sprint[/Keyboard/shift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b6763760-2cb0-4c68-a481-dd5fd5f82a50
+    m_ActionName: 'Player/Interact[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1641,10 +1693,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FPInput
   motor: {fileID: 751931201}
   look: {fileID: 1692791915}
+  interactor: {fileID: 751931205}
   moveAction: {fileID: 7395506592656788848, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
   lookAction: {fileID: -1620829011714694701, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
   jumpAction: {fileID: -2841624737528873164, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
   sprintAction: {fileID: 1154981306832713684, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
+  interact: {fileID: -3054222183472719709, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
 --- !u!114 &751931201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1687,7 +1741,7 @@ MonoBehaviour:
   motor: {fileID: 751931201}
   inputComponent: {fileID: 751931200}
   respawnDelay: 1
-  respawnSystem: {fileID: 1622225070}
+  runOrchestrator: {fileID: 1622225074}
 --- !u!114 &751931203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1715,6 +1769,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHitReceiver
   health: {fileID: 751931203}
+--- !u!114 &751931205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751931196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a00c351777155734597e9b3686fad6d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  playerCamera: {fileID: 1425261222}
+  interactDistance: 2.5
+  interactableMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!65 &758374344
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3399,6 +3470,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1622225069}
   - component: {fileID: 1622225070}
+  - component: {fileID: 1622225071}
+  - component: {fileID: 1622225072}
+  - component: {fileID: 1622225074}
+  - component: {fileID: 1622225073}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3439,6 +3514,59 @@ MonoBehaviour:
   motor: {fileID: 751931201}
   inputComponent: {fileID: 751931200}
   respawnPoint: {fileID: 1800062666}
+--- !u!114 &1622225071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622225068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d01d4fd8a8a9d34894183ae7dd63c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ProgressState
+--- !u!114 &1622225072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622225068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c03f7848d9108e4fa71a83a8611dc78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoopManager
+  defaultStartPoint: {fileID: 1800062666}
+--- !u!114 &1622225073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622225068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db54a0ea039038b40a73dacfa5dea79d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelResetSystem
+--- !u!114 &1622225074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622225068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d54c27ca5648a46b00f6416d1af8f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunOrchestrator
+  loopManager: {fileID: 1622225072}
+  progressState: {fileID: 1622225071}
+  respawnSystem: {fileID: 1622225070}
+  levelResetSystem: {fileID: 1622225073}
 --- !u!65 &1624523469
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3871,6 +3999,131 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1791067597425362102, guid: 4f7014cd5e7196547852078237ada700, type: 3}
+--- !u!1 &1778097386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1778097390}
+  - component: {fileID: 1778097389}
+  - component: {fileID: 1778097388}
+  - component: {fileID: 1778097387}
+  - component: {fileID: 1778097391}
+  m_Layer: 6
+  m_Name: Clock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1778097387
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778097386}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1778097388
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778097386}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0e533a92d74110b4bbe47c2d2451cc29, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1778097389
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778097386}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1778097390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778097386}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.548, y: 1.034, z: 9.172}
+  m_LocalScale: {x: 0.60225, y: 0.60225, z: 0.60225}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1778097391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778097386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9962bc496b6e2c5439244fac4fad2d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClockPickUp
+  progressState: {fileID: 1622225071}
 --- !u!65 &1787730289
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4084,6 +4337,14 @@ PrefabInstance:
     - target: {fileID: -4762408865414794593, guid: 4f7014cd5e7196547852078237ada700, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -823466764173915543, guid: 4f7014cd5e7196547852078237ada700, type: 3}
+      propertyPath: m_Name
+      value: TerminalLoop1
+      objectReference: {fileID: 0}
+    - target: {fileID: -823466764173915543, guid: 4f7014cd5e7196547852078237ada700, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4f7014cd5e7196547852078237ada700, type: 3}
       propertyPath: m_Name
@@ -4579,6 +4840,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -823466764173915543, guid: 4f7014cd5e7196547852078237ada700, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2107548491}
+    - targetCorrespondingSourceObject: {fileID: -823466764173915543, guid: 4f7014cd5e7196547852078237ada700, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2107548496}
     - targetCorrespondingSourceObject: {fileID: 3768765705633191748, guid: 4f7014cd5e7196547852078237ada700, type: 3}
       insertIndex: -1
       addedObject: {fileID: 972712347}
@@ -6145,6 +6409,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 757296933126506413, guid: 4f7014cd5e7196547852078237ada700, type: 3}
+--- !u!114 &2107548496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877182727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd37e3b647930f74ca56026b8b21fad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoopTerminal
+  progressState: {fileID: 1622225071}
+  loopManager: {fileID: 1622225072}
+  loopPoint: {fileID: 750110608}
 --- !u!65 &2129556469
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6176,3 +6455,5 @@ SceneRoots:
   - {fileID: 1622225069}
   - {fileID: 1800062666}
   - {fileID: 1378872359}
+  - {fileID: 1778097390}
+  - {fileID: 750110608}

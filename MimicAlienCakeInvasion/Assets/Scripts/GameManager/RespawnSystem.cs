@@ -22,22 +22,23 @@ public sealed class RespawnSystem : MonoBehaviour
             Debug.LogError("[RespawnSystem] RespawnPoint not assigned.");
     }
 
-    public void Respawn()
+    public void Respawn(Transform respawnPoint)
     {
-        if (playerRoot == null || respawnPoint == null)
+        if (respawnPoint == null)
             return;
-        playerHealth?.ResetHealth();
-        motor?.ResetMotion();
-        bool ccWasEnabled = characterController != null && characterController.enabled;
-        if (characterController != null)
-            characterController.enabled = false;
+
+        playerHealth.ResetHealth();
+        motor.ResetMotion();
+
+        bool ccWasEnabled = characterController.enabled;
+        characterController.enabled = false;
+
         playerRoot.position = respawnPoint.position;
         playerRoot.rotation = respawnPoint.rotation;
-        if (characterController != null)
-            characterController.enabled = ccWasEnabled;
-        if (motor != null)
-            motor.enabled = true;
-        if (inputComponent != null)
-            inputComponent.enabled = true;
+
+        characterController.enabled = ccWasEnabled;
+
+        motor.enabled = true;
+        inputComponent.enabled = true;
     }
 }

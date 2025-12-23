@@ -11,7 +11,7 @@ public sealed class PlayerDeathHandler : MonoBehaviour
 
     [Header("Respawn")]
     [SerializeField] private float respawnDelay = 1f;
-    [SerializeField] private RespawnSystem respawnSystem;
+    [SerializeField] private RunOrchestrator runOrchestrator;
 
     private bool _isDead;
 
@@ -51,7 +51,7 @@ public sealed class PlayerDeathHandler : MonoBehaviour
         // Disparar feedback (fade, sonido, etc.)
         yield return new WaitForSeconds(respawnDelay);
 
-        respawnSystem.Respawn();
+        runOrchestrator.HandlePlayerDeath();
 
         _isDead = false;
     }
