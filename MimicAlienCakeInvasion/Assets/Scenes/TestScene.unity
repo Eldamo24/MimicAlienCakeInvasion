@@ -1674,6 +1674,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: b6763760-2cb0-4c68-a481-dd5fd5f82a50
     m_ActionName: 'Player/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 24f1b94e-6f7c-4d73-97bf-366a0f5a3e17
+    m_ActionName: 'Player/ManualRespawn[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1694,11 +1698,13 @@ MonoBehaviour:
   motor: {fileID: 751931201}
   look: {fileID: 1692791915}
   interactor: {fileID: 751931205}
+  runOrchestrator: {fileID: 1622225074}
   moveAction: {fileID: 7395506592656788848, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
   lookAction: {fileID: -1620829011714694701, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
   jumpAction: {fileID: -2841624737528873164, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
   sprintAction: {fileID: 1154981306832713684, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
   interact: {fileID: -3054222183472719709, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
+  manualRespawn: {fileID: 1499720372181672352, guid: ddc1e3b9b298c0e4ebadcd4c6dd5fc44, type: 3}
 --- !u!114 &751931201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3474,6 +3480,7 @@ GameObject:
   - component: {fileID: 1622225072}
   - component: {fileID: 1622225074}
   - component: {fileID: 1622225073}
+  - component: {fileID: 1622225075}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3567,6 +3574,20 @@ MonoBehaviour:
   progressState: {fileID: 1622225071}
   respawnSystem: {fileID: 1622225070}
   levelResetSystem: {fileID: 1622225073}
+  loopCounter: {fileID: 1622225075}
+  manualRespawnCooldown: 0.5
+--- !u!114 &1622225075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622225068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17cf2d3b868c534ebce4ab363e0ecc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LoopCounter
 --- !u!65 &1624523469
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public sealed class FPInput : MonoBehaviour
     [SerializeField] private FPMotor motor;
     [SerializeField] private FPLook look;
     [SerializeField] private PlayerInteractor interactor;
+    [SerializeField] private RunOrchestrator runOrchestrator;
 
     [Header("Input Actions")]
     [SerializeField] private InputActionReference moveAction;
@@ -15,6 +16,7 @@ public sealed class FPInput : MonoBehaviour
     [SerializeField] private InputActionReference jumpAction;
     [SerializeField] private InputActionReference sprintAction;
     [SerializeField] private InputActionReference interact;
+    [SerializeField] private InputActionReference manualRespawn;
 
     private bool _isMouseLookSource = true;
 
@@ -36,11 +38,13 @@ public sealed class FPInput : MonoBehaviour
         jumpAction.action.Enable();
         sprintAction.action.Enable();
         interact.action.Enable();
+        manualRespawn.action.Enable();
 
         jumpAction.action.performed += OnJumpPerformed;
         sprintAction.action.performed += OnSprintPressed;
         sprintAction.action.canceled += OnSprintCanceled;
         interact.action.performed += OnInteract;
+        manualRespawn.action.performed += OnManualRespawn;
 
         lookAction.action.performed += OnLookSourceChanged;
         lookAction.action.canceled += OnLookSourceChanged;
@@ -52,6 +56,7 @@ public sealed class FPInput : MonoBehaviour
         sprintAction.action.performed -= OnSprintPressed;
         sprintAction.action.canceled -= OnSprintCanceled;
         interact.action.performed -= OnInteract;
+        manualRespawn.action.performed -= OnManualRespawn;
 
         lookAction.action.performed -= OnLookSourceChanged;
         lookAction.action.canceled -= OnLookSourceChanged;
@@ -61,6 +66,7 @@ public sealed class FPInput : MonoBehaviour
         jumpAction.action.Disable();
         sprintAction.action.Disable();
         interact.action.Disable();
+        manualRespawn.action.Disable();
     }
 
     private void Update()
@@ -95,5 +101,10 @@ public sealed class FPInput : MonoBehaviour
     private void OnInteract(InputAction.CallbackContext _)
     {
         interactor.TryInteract();
+    }
+
+    private void OnManualRespawn(InputAction.CallbackContext _)
+    {
+        runOrchestrator.RequestManualRespawn();
     }
 }

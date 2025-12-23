@@ -9,7 +9,12 @@ public sealed class RunOrchestrator : MonoBehaviour
     [SerializeField] private ProgressState progressState;
     [SerializeField] private RespawnSystem respawnSystem;
     [SerializeField] private LevelResetSystem levelResetSystem;
+    [SerializeField] private LoopCounter loopCounter;
 
+    [Header("Manual Respawn")]
+    [SerializeField] private float manualRespawnCooldown = 0.5f;
+
+    private float _lastManualRespawnTime = -Mathf.Infinity;
     private bool _handlingDeath;
 
     public void HandlePlayerDeath()
@@ -33,9 +38,9 @@ public sealed class RunOrchestrator : MonoBehaviour
     {
         Debug.Log("[RunOrchestrator] Restarting run");
 
-        // Reset explícito de progreso
         progressState.ResetProgress();
         loopManager.ResetLoop();
+        loopCounter.ResetCount();
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
@@ -44,11 +49,26 @@ public sealed class RunOrchestrator : MonoBehaviour
     {
         Debug.Log("[RunOrchestrator] Respawning at loop");
 
-        // Resetear mundo reseteable
         levelResetSystem.ResetLevel();
-
-        // Respawn usando el loop actual
         respawnSystem.Respawn(loopManager.GetRespawnPoint());
+
+        loopCounter.RegisterLoop();
+
         _handlingDeath = false;
+    }
+
+    public void RequestManualRespawn()
+    {
+        if (!loopManager.IsLoopUnlocked)
+            return;
+
+        if (Time.time < _lastManualRespawnTime + manualRespawnCooldown)
+            return;
+
+        _lastManualRespawnTime = Time.time;
+
+        Debug.Log("[RunOrchestrator] Manual respawn requested");
+
+        RespawnAtLoop();
     }
 }
