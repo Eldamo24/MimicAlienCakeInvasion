@@ -7,12 +7,14 @@ public sealed class FPInput : MonoBehaviour
     [Header("References")]
     [SerializeField] private FPMotor motor;
     [SerializeField] private FPLook look;
+    [SerializeField] private PlayerInteractor interactor;
 
     [Header("Input Actions")]
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference lookAction;
     [SerializeField] private InputActionReference jumpAction;
     [SerializeField] private InputActionReference sprintAction;
+    [SerializeField] private InputActionReference interact;
 
     private bool _isMouseLookSource = true;
 
@@ -33,10 +35,12 @@ public sealed class FPInput : MonoBehaviour
         lookAction.action.Enable();
         jumpAction.action.Enable();
         sprintAction.action.Enable();
+        interact.action.Enable();
 
         jumpAction.action.performed += OnJumpPerformed;
         sprintAction.action.performed += OnSprintPressed;
         sprintAction.action.canceled += OnSprintCanceled;
+        interact.action.performed += OnInteract;
 
         lookAction.action.performed += OnLookSourceChanged;
         lookAction.action.canceled += OnLookSourceChanged;
@@ -47,6 +51,7 @@ public sealed class FPInput : MonoBehaviour
         jumpAction.action.performed -= OnJumpPerformed;
         sprintAction.action.performed -= OnSprintPressed;
         sprintAction.action.canceled -= OnSprintCanceled;
+        interact.action.performed -= OnInteract;
 
         lookAction.action.performed -= OnLookSourceChanged;
         lookAction.action.canceled -= OnLookSourceChanged;
@@ -55,6 +60,7 @@ public sealed class FPInput : MonoBehaviour
         lookAction.action.Disable();
         jumpAction.action.Disable();
         sprintAction.action.Disable();
+        interact.action.Disable();
     }
 
     private void Update()
@@ -84,5 +90,10 @@ public sealed class FPInput : MonoBehaviour
     private void OnLookSourceChanged(InputAction.CallbackContext ctx)
     {
         _isMouseLookSource = ctx.control?.device is Mouse;
+    }
+
+    private void OnInteract(InputAction.CallbackContext _)
+    {
+        interactor.TryInteract();
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public sealed class MimicAmbush : MonoBehaviour
+public sealed class MimicAmbush : MonoBehaviour, IResettable
 {
     [Header("Damage")]
     [SerializeField] private float attackCooldown;
@@ -110,5 +110,12 @@ public sealed class MimicAmbush : MonoBehaviour
         {
             // queda revelado para siempre
         }
+    }
+
+    public void ResetState()
+    {
+        _isRevealed = false;
+        ClearTarget();
+        // volver a estado “disfrazado”
     }
 }
