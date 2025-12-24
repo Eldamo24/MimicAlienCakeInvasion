@@ -51,7 +51,7 @@ public sealed class RunOrchestrator : MonoBehaviour
 
         levelResetSystem.ResetLevel();
         respawnSystem.Respawn(loopManager.GetRespawnPoint());
-
+        progressState.ClearRunItemsOnLoop();
         loopCounter.RegisterLoop();
 
         _handlingDeath = false;
