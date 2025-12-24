@@ -5,17 +5,15 @@ public sealed class LevelResetSystem : MonoBehaviour
 {
     public void ResetLevel()
     {
-        var resettables = Object.FindObjectsByType<MonoBehaviour>(
+        var behaviours = Object.FindObjectsByType<MonoBehaviour>(
             FindObjectsInactive.Include,
             FindObjectsSortMode.None
         );
 
-        foreach (var mb in resettables)
+        foreach (var mb in behaviours)
         {
             if (mb is IResettable resettable)
-            {
                 resettable.ResetState();
-            }
         }
 
         Debug.Log("[LevelResetSystem] Level reset");
